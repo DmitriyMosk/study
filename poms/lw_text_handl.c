@@ -1,5 +1,6 @@
 #include "stdio.h" 
 #include "stdlib.h"
+#include "malloc.h"
 
 #define RandMax 50
 #define RandMin 10 
@@ -13,22 +14,22 @@ void FileFill(FILE *thread, int *data);
 
 INT_ARRAY *Array(size_t size); 
 void ArrayRandomize(INT_ARRAY *array);
-void ArraySet(INT_ARRAY *arr, int val, int index); 
-int ArrayGet(INT_ARRAY *array, int index); 
+void ArraySet(INT_ARRAY *arr, const int val, const int index); 
+int ArrayGet(INT_ARRAY *array, const int index); 
 void ArrayPrint(INT_ARRAY *array); 
  
 int main(void) 
 { 
-    FILE *thread = NULL; 
+    FILE *thread; 
     thread = fopen("a+", "txts/text_handl_txt.txt"); 
     
     size_t arr_size; 
-    printf("Insert array size: "); scanf("%li ", arr_size); 
+    printf("Insert array size: "); scanf("%li", &arr_size); 
 
-    INT_ARRAY *arr = NULL; 
-    arr = Array(arr_size); 
+    INT_ARRAY *arr = Array(arr_size); 
 
     ArrayRandomize(arr);  
+    ArrayPrint(arr); 
     
     
     return 0;
@@ -41,20 +42,23 @@ void FileFill(FILE *thread, int *data)
 
 INT_ARRAY *Array(size_t size) 
 { 
-    INT_ARRAY *arr = NULL; 
-    arr->data = (int *) malloc(sizeof(int) * size); 
+    INT_ARRAY *arr = (INT_ARRAY*)malloc(sizeof(INT_ARRAY));  
+
+    arr->data = (int *)malloc(sizeof(int)*size); 
     arr->size = size;
+
+    return arr;
 }
 
 void ArrayRandomize(INT_ARRAY *array) 
 { 
     for(size_t i = 0; i < array->size; i++)
     {
-        array->data[i] = rand() % ( RandMax - RandMin + 1 ) + RandMin; 
+       ArraySet(array, rand() % ( RandMax - RandMin + 1 ) + RandMin, i); 
     }
 }
 
-void ArraySet(INT_ARRAY *arr, int val, int pos) 
+void ArraySet(INT_ARRAY *arr, const int val, const int pos) 
 { 
     if (pos >= arr->size) 
         printf("ERROR %i sets %i in array size %i", pos, val, arr->size); 
@@ -62,12 +66,12 @@ void ArraySet(INT_ARRAY *arr, int val, int pos)
         arr->data[pos] = val; 
 }
 
-int ArrayGet(INT_ARRAY *arr, int index)
+int ArrayGet(INT_ARRAY *arr, const int index)
 { 
     if ( index >= arr->size )
     { 
         printf("ERROR %i get in array size %i", index, arr->size); 
-        return NULL;
+        return 0;
     }
     else 
     { 
