@@ -1,6 +1,9 @@
 #include "stdio.h" 
 #include "stdlib.h"
 #include "malloc.h"
+#include "time.h"
+#include "math.h"
+#include "limits.h"
 typedef struct C_STRING { 
     char *data; 
     size_t len; 
@@ -27,6 +30,8 @@ void WorkStart();
 
 int main() 
 {  
+    srand(time(NULL)); 
+
     size_t arr_len = 0; 
     printf("Array size: "); scanf("%li", &arr_len); 
 
@@ -51,24 +56,53 @@ void WorkStart()
     size_t count_numbers = 0; 
     while((buff = fgetc(thread)) != EOF) 
     {
-        printf("%c ", buff);
         if ( buff == ' ' || buff == '\0')
         { 
             count_numbers++; 
         }
     }
-    printf("numbers finded: %li", count_numbers);
+
+    rewind(thread); 
+
+    printf("numbers finded: %li\n", count_numbers);
     INT_ARRAY *ia = __create_int_array(count_numbers);
 
+
+    int readingInt;  
     int index = 0; 
-    printf("Dsdasd");
-    while(fscanf(thread, "%i ", ia->data[index]) != EOF)
-    { 
-        printf("%i\n", index);
-        index++;  
+    while(fscanf(thread, "%i ", &readingInt) == 1)
+    {  
+        Set(ia, index, readingInt);
+        index++; 
     }
 
-    PrintArray(ia); 
+    PrintArray(ia);
+
+    float middleA = 0;
+
+    for(size_t i = 0; i < GetSize(ia); i++)
+    { 
+        middleA += Get(ia, i); 
+    }
+
+    middleA /= (float)count_numbers;  
+
+    printf("Middle value: %f\n", middleA); 
+
+    int min_distance = INT_MAX; 
+    int min_distance_index; 
+
+    for(size_t i = 0; i < GetSize(ia); i++)
+    { 
+        if (fabs(Get(ia, i) - middleA) < min_distance ) 
+        { 
+            min_distance = fabs(middleA - Get(ia, i)); 
+            min_distance_index = i; 
+        }
+    }
+
+    printf("Min Distance: %f\n", min_distance); 
+    printf("Min Distance index: %i\n", min_distance_index); 
 }
 
 INT_ARRAY *__create_int_array(size_t len) 
@@ -129,7 +163,9 @@ void ToFile(INT_ARRAY *ia)
 }
 
 void __unset_int_array(INT_ARRAY *ia)
-{ 
+{   
+    ia->data = NULL; 
+
     free(ia->data); 
     free(ia); 
 }
