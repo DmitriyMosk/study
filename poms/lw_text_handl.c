@@ -1,137 +1,135 @@
 #include "stdio.h" 
 #include "stdlib.h"
 #include "malloc.h"
+typedef struct C_STRING { 
+    char *data; 
+    size_t len; 
+} C_STRING; 
+typedef struct INT_ARRAY { 
+    int *data; 
+    size_t len; 
+} INT_ARRAY; 
+
 
 #define RandMax 50
 #define RandMin 10 
 #define WorkFilePath "txts/text_handl_txt.txt"
 
-typedef struct C_STRING { 
-    char *data; 
-    size_t size; 
-} C_STRING; 
+INT_ARRAY *__create_int_array(size_t len); 
+void __unset_int_array(INT_ARRAY *ia); 
+size_t GetSize(INT_ARRAY *ia); 
+void Set(INT_ARRAY *ia, const int index, const int val); 
+int Get(INT_ARRAY *ia, const int index); 
+void Randomize(INT_ARRAY *ia); 
+void PrintArray(INT_ARRAY *ia); 
+void ToFile(INT_ARRAY *ia);
+void WorkStart(); 
 
-void FileFill(FILE *thread); 
+int main() 
+{  
+    size_t arr_len = 0; 
+    printf("Array size: "); scanf("%li", &arr_len); 
 
-C_STRING *Array(size_t size); 
-void StringRandomize(C_STRING *array);
-void CharSet(C_STRING *arr, const char val, const int index); 
-int CharGet(C_STRING *array, const int index); 
-void StringPrint(C_STRING *array); 
-void StringFree(C_STRING *arr); 
-void StartHandl(); 
+    INT_ARRAY *ia = __create_int_array(arr_len); 
+    Randomize(ia);
+    PrintArray(ia); 
 
-int main(void) 
-{ 
-    FILE *thread; 
-    thread = fopen(WorkFilePath, "w+"); 
+    ToFile(ia); 
     
-    if ( thread == NULL  )
-    { 
-        printf("fopen: filed");
-        return 0; 
-    }
-    else
-    {
-        printf("fopen: succes\nStart working\n");
-    }
+    WorkStart(); 
 
-    FileFill(thread); 
+    return 0; 
+}
 
-    StartHandl(); 
-    return 0;
-} 
-
-void StartHandl()
+void WorkStart() 
 { 
     FILE *thread;
-    thread = fopen(WorkFilePath, 'a');
-
-    if ( thread == NULL  )
-    { 
-        printf("fopen worker: filed");
-        return 0; 
-    }
-    else
-    {
-        printf("fopen worker: succes\nStart working\n");
-    }
-
-
-}
-
-void FileFill(FILE *thread) 
-{ 
-    size_t arr_size; 
-    printf("Insert array size: "); scanf("%li", &arr_size); 
-
-    C_STRING *arr = Array(arr_size); 
-
-    StringRandomize(arr);  
-    StringPrint(arr); 
-
-    for(size_t i = 0; i < arr->size; i++)
-    { 
-        fprintf(thread, "%d", arr->data[i]);
-    }
+    thread = fopen(WorkFilePath, "r");  
     
-    //fputs(arr->data, thread);
-
-    StringFree(arr);
-}
-
-C_STRING *Array(size_t size) 
-{ 
-    C_STRING *arr = (C_STRING*)malloc(sizeof(C_STRING));  
-
-    arr->data = (char *)malloc(sizeof(char)*size); 
-    arr->size = size;
-
-    return arr;
-}
-
-void StringRandomize(C_STRING *array) 
-{ 
-    for(size_t i = 0; i < array->size; i++)
+    printf("Start reading file\n");
+    char buff; 
+    size_t count_numbers = 0; 
+    while((buff = fgetc(thread)) != EOF) 
     {
-       CharSet(array, rand() % ( RandMax - RandMin + 1 ) + RandMin, i); 
+        printf("%c ", buff);
+        if ( buff == ' ' || buff == '\0')
+        { 
+            count_numbers++; 
+        }
     }
+    printf("numbers finded: %li", count_numbers);
+    INT_ARRAY *ia = __create_int_array(count_numbers);
+
+    int index = 0; 
+    printf("Dsdasd");
+    while(fscanf(thread, "%i ", ia->data[index]) != EOF)
+    { 
+        printf("%i\n", index);
+        index++;  
+    }
+
+    PrintArray(ia); 
 }
 
-void ArraySet(C_STRING *arr, const int val, const int pos) 
+INT_ARRAY *__create_int_array(size_t len) 
 { 
-    if (pos >= arr->size) 
-        printf("ERROR %i sets %i in array size %i", pos, val, arr->size); 
+    INT_ARRAY *ia = (INT_ARRAY*)malloc(sizeof(INT_ARRAY)); 
+
+    ia->data = (int *)malloc(sizeof(int)*len); 
+    ia->len = len;
+
+    return ia;
+}
+size_t GetSize(INT_ARRAY *ia){ return ia->len; } 
+void Set(INT_ARRAY *ia, const int index, const int val) { if(GetSize(ia) > index) ia->data[index] = val; }
+int Get(INT_ARRAY *ia, const int index) { if(GetSize(ia) > index) return ia->data[index]; else return -19999; }  
+
+void Randomize(INT_ARRAY *ia)
+{   
+    size_t i; 
+    for(i = 0; i < GetSize(ia); i++) 
+    { 
+        Set(ia, i, rand() % (RandMax - RandMin + 1) + RandMin); 
+    }
+} 
+
+void PrintArray(INT_ARRAY *ia)
+{ 
+    printf("\n\n"); 
+    size_t i; 
+    for(i = 0; i < GetSize(ia); i++)
+    { 
+        printf("%i ", Get(ia, i)); 
+    }
+    printf("\n\n"); 
+}
+
+void ToFile(INT_ARRAY *ia)
+{ 
+    FILE *thread; 
+    thread = fopen(WorkFilePath, "w+"); // create if exists
+    
+    if ( thread == NULL ) 
+    { 
+        printf("fopen: failed\n");
+        exit(1); 
+    }
     else 
-        arr->data[pos] = val; 
+    { 
+        printf("fopen: succes\n"); 
+    }
+
+    for(size_t i = 0; i < GetSize(ia); i++)
+    { 
+        fprintf(thread, "%i ", Get(ia, i));
+    }
+
+    fclose(thread); 
+    __unset_int_array(ia);
 }
 
-int ArrayGet(C_STRING *arr, const int index)
+void __unset_int_array(INT_ARRAY *ia)
 { 
-    if ( index >= arr->size )
-    { 
-        printf("ERROR %i get in array size %i", index, arr->size); 
-        return 0;
-    }
-    else 
-    { 
-        return arr->data[index]; 
-    }
-        
-}
-
-void ArrayPrint(C_STRING *arr)
-{ 
-    printf("\n\n");
-    for(size_t i = 0; i < arr->size; i++)
-    { 
-        printf("%i ", arr->data[i]); 
-    }
-    printf("\n\n");
-}
-
-void ArrayFree(C_STRING *arr)
-{
-    free(arr->data);
-    free(arr);
+    free(ia->data); 
+    free(ia); 
 }
