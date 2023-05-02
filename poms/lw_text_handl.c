@@ -2,6 +2,7 @@
 #include "stdlib.h"
 #include "malloc.h"
 #include "time.h"
+#include "math.h"
 #include "limits.h"
 typedef struct C_STRING { 
     char *data; 
@@ -15,7 +16,7 @@ typedef struct INT_ARRAY {
 
 #define RandMax 50
 #define RandMin 10 
-#define WorkFilePath "outfiles/text_handl_txt.txt"
+#define WorkFilePath "txts/text_handl_txt.txt"
 
 INT_ARRAY *__create_int_array(size_t len); 
 void __unset_int_array(INT_ARRAY *ia); 

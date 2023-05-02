@@ -1,79 +1,14 @@
-//#include "mylib/fbinary/fbinary.h" // my static lib
-//Shared Lib
+#include "mylib/static_example/binary.h" // my static lib
+#include "mylib/static_example/mytypes.h" // my static lib
+#include "mylib/static_example/routes.h" // my static lib
 
 #include "stdio.h"
 #include "stdlib.h"
 
-typedef struct Route
-{
-    int end; 
-    int start; 
-    int number_route; 
-} _Route;
-
-typedef struct Routes
-{ 
-    _Route *r;
-    size_t r_counts; 
-} _Routes; 
-
-FILE *BinaryCreate(char path[]) 
-{ 
-    FILE *thread = fopen(path, "wb"); 
-    
-    if (thread == NULL)
-    { 
-        printf("Sorry, file not opened.\n");
-        exit(0); 
-    }
-    else 
-        printf("File opened!\n"); 
-
-    return thread;  
-} 
-
-void BinarySave(FILE *thread, _Routes *info)
-{ 
-    int bytes = sizeof(info); 
-
-    char *c; 
-
-    c = (char *)info; 
-    for(size_t i = 0; i < info->r_counts; i++)
-    {
-        fwrite(&(info->r[i]), sizeof(info->r[i]), 1, thread); 
-    }
-}
-
-_Route BinaryRead(FILE *thread)
-{ 
-
-}
-//Shared libend 
-
 #define OutFile "outfiles/Spravka.dat"
 
-void RoutePrint(_Route *r)
-{
-    printf("start->end: (%i %i) number: %i\n", r->start, r->end, r->number_route);
-}
-
-void RoutesPrint(_Routes *rs) 
-{ 
-    printf("\n");
-    for(size_t i = 0; i < rs->r_counts; i++)
-    { 
-        RoutePrint(&(rs->r[i]));
-    }
-    printf("\n");
-}
-
-void RoutesFree(_Routes *rs) 
-{ 
-    rs->r = NULL; 
-    free(rs->r);
-    free(rs);
-}
+typedef struct Routes _Routes; 
+typedef struct Route _Route; 
 
 void Handl();
 
