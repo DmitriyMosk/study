@@ -1,4 +1,7 @@
-a.out
-a.exe
+*.out
+*.exe
+*.dat
+*.txt
+*.o
+*.dll
 .vscode
-outfiles 
