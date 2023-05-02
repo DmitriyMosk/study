@@ -2,6 +2,8 @@
 #include "mylib/static_example/mytypes.h" // my static lib
 #include "mylib/static_example/routes.h" // my static lib
 
+
+
 #include "stdio.h"
 #include "stdlib.h"
 
@@ -73,6 +75,7 @@ void Handl(size_t count)
 
             notfinded = 0; 
         }
+        index++;
     }
 
     if(notfinded == 1)
