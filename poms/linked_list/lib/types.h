@@ -3,6 +3,7 @@
 
 typedef struct node node_t;
 typedef struct u_node unode_t;
+typedef unsigned int size_t; 
 typedef struct u_node
 {
     int *data;
@@ -16,6 +17,16 @@ typedef struct node
     u_node *up;
 } node;
 
+typedef struct IArray  
+{ 
+    int *data; 
+    size_t len; 
+} IArray; 
 
+typedef struct Range
+{
+    int min; 
+    int max; 
+} Range;
 
 #endif

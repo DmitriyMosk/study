@@ -8,20 +8,17 @@
 node *CreateNode(); 
 u_node *CreateUNode(); 
 
+// DataWorker 
+node *NodePush(node *prev); 
+u_node *UNodePush(u_node *prev, node *source, const char pos, int data); 
 
 // Some node func
-void NodeLink(node *source, node *destination); 
-void NodeLinkUNodeUp(node *source, u_node *destination); 
-void NodeLinkUNodeDown(node *source, u_node *destination); 
+node *NextNode(node *n); 
 
-void NodePush(void *ptr1, void *ptr2); 
- 
-node *NextField(); 
-u_node *NodeUp(); 
-u_node *NodeDown(); 
+void NodePop(node *cur); 
+void UNodePop(u_node *cur); 
 
-u_node *UNodeFlush(); 
-node *NodeFlush(); 
+void NodeFlush(node *start_node); 
 
 
 
