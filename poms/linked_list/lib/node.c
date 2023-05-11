@@ -63,3 +63,13 @@ void NodeFlush(node *start_node)
 {
     
 }
+
+void UNodeFlush(u_node *flush)
+{
+
+}
+
+void ListFlush(node *start) 
+{ 
+    
+}

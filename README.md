@@ -22,5 +22,7 @@ gcc -o lib_test *.o
 gcc -c lw_binary_handl.c
 gcc -c -fPIC mylib/dynamic_example/*.c
 gcc -shared -o mydlib.dll *.o
-//rm *.o -- удаление использованных объектных файлов
+
 gcc -o dyn_example main.o -L. -lMY_PRINT -Wl,-rpath,.
+
+//rm *.o -- удаление использованных объектных файлов 
