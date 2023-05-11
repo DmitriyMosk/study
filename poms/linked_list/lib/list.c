@@ -5,8 +5,11 @@
 list *ListCell()
 {
     list *cell = (list*)malloc(sizeof(list)); 
+
     cell->val = NULL;
     cell->right = NULL; 
+
+    return cell; 
 }
 
 void ListPop(list *ptr, list *last, int val) 

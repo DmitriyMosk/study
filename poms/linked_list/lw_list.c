@@ -58,13 +58,13 @@ int main()
     u_node *prev_unode = NULL; 
     for(size_t i = 0; i < counts; i++)
     {   
-        if(pos == 1)
+        if(pos == 1) //down
         { 
             cur_unode = UNodePush(prev_unode, inode, 'd', items[i]); 
             printf("%p\n", inode);  
         }
 
-        if (pos == 2) 
+        if (pos == 2) //up
         { 
             cur_unode = UNodePush(prev_unode, inode, 'u', items[i]);  
             printf("%p\n", inode->up); 
@@ -76,7 +76,7 @@ int main()
 
         prev_unode = cur_unode; 
 
-        if (memcmp(inode, firstnode, sizeof(node))==0) // переходим вверх, если оказываемся в начале
+        if (memcmp(inode, firstnode, sizeof(node)) == 0) // переходим вверх, если оказываемся в начале
         { 
             pos = 2; 
             inode = firstnode; // Возвращаемся в начало.
@@ -91,7 +91,6 @@ int main()
     printf("Up: <u>\n"); 
     printf("Down: <d>\n"); 
     printf("Exit: <e>\n");
-    printf("Pop: <p>\n");
     printf("Return to start: <g>\n");
     printf("=======================================\n");
  
@@ -155,9 +154,7 @@ int main()
                     printf("{down} value: %i\n",current_u_node->data);
                 }
                 else 
-                { 
                     printf("Down is empty.\n");
-                }
                 break;
             case 'e':
                 printf("..");
@@ -165,6 +162,9 @@ int main()
             case 'p':
                 /* code */
                 break;
+            case 'f': 
+
+                break; 
             case 'g':
                 inode = firstnode; 
                 current_u_node = NULL;
@@ -178,8 +178,8 @@ int main()
                 printf("Up: <u>\n"); 
                 printf("Down: <d>\n"); 
                 printf("Exit: <e>\n");
-                printf("Pop: <p>\n");
                 printf("Return to start: <g>\n");
+                printf("Free: <f>\n");
                 printf("=======================================\n");
                 break;
             case '\n':  // no comments
