@@ -1,3 +1,9 @@
-﻿  CppCLR_WinFormsProject.cpp
-  AssemblyInfo.obj : обнаружен модуль MSIL; для MSIL последовательная компоновка отключена; выполняется полная компоновка
-  laba8.vcxproj -> D:\Git files\study\tp-poms\laba8\x64\Debug\laba8.exe
+﻿  pch.cpp
+  AssemblyInfo.cpp
+  CppCLR_WinFormsProject.cpp
+  Form1.cpp
+  Создание кода...
+  .NETFramework,Version=v4.7.2.AssemblyAttributes.cpp
+TRACKER : error TRK0005: не удалось обнаружить "rc.exe". Не удается найти указанный файл.
+  
+  

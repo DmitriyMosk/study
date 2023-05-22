@@ -1,5 +1,15 @@
 #pragma once
-#include "math.h"
+
+double pow(double x, double y)
+{
+	for (double i = 0; i <= y; i++)
+	{
+		x = x * x; 
+	}
+
+	return x; 
+}
+
 namespace CppCLRWinFormsProject {
 
 	using namespace System;
