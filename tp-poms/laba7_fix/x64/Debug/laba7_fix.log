@@ -1,3 +1,2 @@
-﻿  CppCLR_WinFormsProject.cpp
-  AssemblyInfo.obj : обнаружен модуль MSIL; для MSIL последовательная компоновка отключена; выполняется полная компоновка
-  laba7_fix.vcxproj -> D:\Git files\study\tp-poms\laba7_fix\x64\Debug\laba7_fix.exe
+﻿  AssemblyInfo.obj : обнаружен модуль MSIL; для MSIL последовательная компоновка отключена; выполняется полная компоновка
+LINK : fatal error LNK1104: не удается открыть файл "MSCOREE.lib"
