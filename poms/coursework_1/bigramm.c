@@ -13,7 +13,7 @@ int main()
     wchar_t *buffer = NULL, *key = NULL;
     
     FILE *decode = fopen(DECODE_FILE, "r"); // Расшиврованная информация
-    FILE *encode = fopen(ENCODE_FILE, "r"); // Зашифрованная информация 
+    FILE *encode = fopen(ENCODE_FILE, "w"); // Зашифрованная информация 
     FILE *keyfil = fopen(KEY_FILE, "r");    // ключ
     
     if(!decode || !encode)
@@ -74,7 +74,18 @@ int main()
 
         wprintf(L"Key: %ls | len: %d\n",key, key_size);
 
-        CryptoIO(buffer, key, 'e', decode_size, key_size);
+        wchar_t *info = CryptoIO(buffer, key, 'e', decode_size, key_size);
+        wprintf(L"Encode result: %s | Len: %d\n\n\n", info, wcslen(info));
+
+        fputws(info, encode); 
+
+        wchar_t *info2 = CryptoIO(info, key, 'd', decode_size, key_size);
+        wprintf(L"Decode result: %s | Len: %d\n\n\n", info2, wcslen(info2)); 
+
+        if(CryptCompare(buffer, info2)) 
+        { 
+            printf("Исходная строка и декодированная соответствуют.\n"); 
+        }
     }
     if(act == 'n') 
     {
@@ -89,4 +100,4 @@ int main()
     free(key);
     //CryptoIO(buffer, key, 'e'); 
     return 0; 
-}
+} 
