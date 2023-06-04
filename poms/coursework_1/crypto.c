@@ -144,12 +144,12 @@ wchar_t *CryptoIO(wchar_t *buffer, wchar_t *key, char flag, size_t buff_len, siz
 
             if (p_gr1.i == -1 && p_gr1.j == -1) 
             { 
-                wprintf(L"Символ %c не определён\n", gr1); 
+                //wprintf(L"Символ %c не определён\n", gr1); 
             }
             else 
             if (p_gr2.i == -1 && p_gr2.j == -1) 
             { 
-                wprintf(L"Символ %c не определён\n", gr2); 
+                //wprintf(L"Символ %c не определён\n", gr2); 
             } 
             else 
             if ( p_gr1.j == p_gr2.j ) 
@@ -195,12 +195,12 @@ wchar_t *CryptoIO(wchar_t *buffer, wchar_t *key, char flag, size_t buff_len, siz
 
             if (p_gr1.i == -1 && p_gr1.j == -1) 
             { 
-                wprintf(L"Символ %c не определён\n", gr1); 
+                //wprintf(L"Символ %c не определён\n", gr1); 
             }
             else 
             if (p_gr2.i == -1 && p_gr2.j == -1) 
             { 
-                wprintf(L"Символ %c не определён\n", gr2); 
+                //wprintf(L"Символ %c не определён\n", gr2); 
             } 
             else 
             if ( p_gr1.j == p_gr2.j ) 
@@ -242,5 +242,5 @@ wchar_t *CryptoIO(wchar_t *buffer, wchar_t *key, char flag, size_t buff_len, siz
 
 bool CryptCompare(wchar_t *src, wchar_t *dest) 
 { 
-    return wcscmp(src, dest) == 1;     
+    return wcscmp(src, dest) == 0;     
 }
