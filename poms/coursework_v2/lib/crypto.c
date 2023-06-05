@@ -1,6 +1,6 @@
 #include "crypto.h"
 
-char alphabet[] = "абвгдежзийклмнопрстуфхцчшщъыьэюя_.,-";
+char alphabet[] = "абвгдежзийклмнопрстуфхцчшщъыьэюя_.,-"; 
 const int alphabet_size = 37;
 
 typedef struct Pos {
@@ -82,16 +82,21 @@ char **CryptoMatrix(char *key, size_t key_len)
 
         RemoveDuplicates(words_array, len_matrix);
 
-        printf("Words: %s | Len: %d\n", words_array, strlen(words_array), len_matrix);
+        printf("Words: %s | Len: %d\n", words_array, strlen(words_array));
     }
     else 
     { 
         size_t len_matrix = alphabet_size + 1;    
         words_array = (char *)malloc(sizeof(char) * len_matrix); 
 
-        strcat(words_array, alphabet);
+        for(size_t i = 0; i < alphabet_size; i++) 
+        { 
+            words_array[i] = alphabet[i]; 
+        }
 
-        printf("Words: %s | Len: %d\n", words_array, strlen(words_array), len_matrix);
+        words_array[alphabet_size] = '\0';
+        
+        printf("Words: %s | Len: %d\n", words_array, strlen(words_array));
     }
 
     char **cryptoMatrix = (char **)malloc(6*sizeof(char *)); 
@@ -168,9 +173,7 @@ void CryptoIO(char *text, size_t text_len, char *key, size_t key_len)
     if (text_len % 2 != 0)
     { 
         result_e[text_len-1] = text[text_len-1];
-    }
-
-    printf("Результат шифрования: %s\n", result_e); 
+    } 
 
     for(size_t CryptoID = 0; CryptoID < text_len - 1; CryptoID += 2)
     { 
@@ -230,7 +233,7 @@ void CryptoIO(char *text, size_t text_len, char *key, size_t key_len)
         }
     }
 
-    printf("Результат дешифрования: %s\n", result_d);
+    
 
     for(size_t i = 0; i < 6; i++)
     { 
@@ -246,9 +249,21 @@ void CryptoIO(char *text, size_t text_len, char *key, size_t key_len)
         printf("Ошибка открытия файла\n"); 
         exit(1); 
     }
+    printf("Результат шифрования: ");
+    for(size_t i = 0; i < text_len; i++)
+    {
+        printf("%c", result_e[i]);
+        fputc(result_e[i], encode_result);
+    }
+    printf("\n"); 
 
-    fputs(result_e, encode_result); 
-    fputs(result_d, decode_result); 
+    printf("Результат дешифрования: ");
+    for(size_t i = 0; i < text_len; i++)
+    {
+        printf("%c", result_d[i]);
+        fputc(result_d[i], decode_result);
+    }
+    printf("\n");
 
     fclose(encode_result);
     fclose(decode_result);
