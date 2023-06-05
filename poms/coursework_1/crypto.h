@@ -7,5 +7,5 @@
 #include "malloc.h"
 //////////////////// 
 
-void CryptoIO(wchar_t *buffer, wchar_t *key, char flag, size_t buff_len, size_t key_len);
+wchar_t *CryptoIO(wchar_t *buffer, wchar_t *key, char flag, size_t buff_len, size_t key_len);
 bool CryptCompare(wchar_t *src, wchar_t *dest); 

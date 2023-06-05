@@ -1,14 +1,13 @@
 #include "crypto.h"
 #include "stdbool.h"
 
-wchar_t alphabet[38] = L"абвгдеёжзийклмнопрстуфхцчшщъыьэюя .,-";
-const int alphabet_size = 38;
+wchar_t alphabet[37] = L"абвгдежзийклмнопрстуфхцчшщъыьэюя_.,-";
+const int alphabet_size = 37;
 
 typedef struct Pos {
     int i;
     int j;
 } POS; 
-
 
 void PrintMatrix(wchar_t **m, size_t size)
 { 
@@ -45,6 +44,9 @@ void RemoveDuplicates(wchar_t *str, size_t key_len)
 POS GetCharPos(wchar_t c, wchar_t **matrix)
 { 
     POS pos; 
+    pos.i = -1; 
+    pos.j = -1; 
+
     for(size_t row = 0; row < 6; row++)
     { 
         for(size_t col = 0; col < 6; col++)
@@ -111,7 +113,7 @@ wchar_t **CryptoMatrix(wchar_t *key, size_t key_len)
     //wprintf(L"%s\n", key_fixed);
 }
 
-void CryptoIO(wchar_t *buffer, wchar_t *key, char flag, size_t buff_len, size_t key_len)
+wchar_t *CryptoIO(wchar_t *buffer, wchar_t *key, char flag, size_t buff_len, size_t key_len)
 { 
     if (buffer == NULL)
     { 
@@ -126,7 +128,60 @@ void CryptoIO(wchar_t *buffer, wchar_t *key, char flag, size_t buff_len, size_t 
         printf("Crypto Matrix: ---\n");
         PrintMatrix(matrix, 6); 
 
-        for(size_t CryptoID = 0; CryptoID < buff_len - 2; CryptoID += 2)
+        for(size_t CryptoID = 0; CryptoID < buff_len - 1; CryptoID += 2)
+        { 
+            wchar_t gr1, gr2; 
+
+            gr1 = buffer[CryptoID]; 
+            gr2 = buffer[CryptoID+1]; 
+
+            wprintf(L"%c %c\n", gr1, gr2);
+
+            POS p_gr1, p_gr2;
+
+            p_gr1 = GetCharPos(gr1, matrix); 
+            p_gr2 = GetCharPos(gr2, matrix); 
+
+            if (p_gr1.i == -1 && p_gr1.j == -1) 
+            { 
+                //wprintf(L"Символ %c не определён\n", gr1); 
+            }
+            else 
+            if (p_gr2.i == -1 && p_gr2.j == -1) 
+            { 
+                //wprintf(L"Символ %c не определён\n", gr2); 
+            } 
+            else 
+            if ( p_gr1.j == p_gr2.j ) 
+            { 
+                gr1 = (p_gr1.i == 5) ? matrix[0][p_gr1.j] : matrix[p_gr1.i+1][p_gr1.j]; 
+                gr2 = (p_gr2.i == 5) ? matrix[0][p_gr2.j] : matrix[p_gr2.i+1][p_gr2.j];
+            }
+            else if ( p_gr1.i == p_gr2.i )
+            { 
+                gr1 = (p_gr1.j == 5) ? matrix[p_gr1.i][0] : matrix[p_gr1.i][p_gr1.j+1]; 
+                gr2 = (p_gr2.j == 5) ? matrix[p_gr2.i][0] : matrix[p_gr2.i][p_gr2.j+1];
+            }
+            else 
+            {
+                gr1 = (p_gr1.i == 5) ? matrix[0][p_gr1.j] : matrix[p_gr1.i + 1][p_gr1.j]; 
+                gr2 = (p_gr2.i == 0) ? matrix[5][p_gr2.j] : matrix[p_gr2.i - 1][p_gr2.j];
+            }
+
+            result[CryptoID] = gr1; 
+            result[CryptoID + 1] = gr2; 
+
+            //wprintf(L"d: %s\n", result); 
+        }
+    } 
+
+    if(flag == 'd')
+    { 
+        printf("Crypto Matrix: ---\n");
+        PrintMatrix(matrix, 6); 
+
+        wprintf(L"%s | len: %d\n", buffer, wcslen(buffer)); 
+        for(size_t CryptoID = 0; CryptoID < buff_len - 1; CryptoID += 2)
         { 
             wchar_t gr1, gr2; 
 
@@ -138,49 +193,54 @@ void CryptoIO(wchar_t *buffer, wchar_t *key, char flag, size_t buff_len, size_t 
             p_gr1 = GetCharPos(gr1, matrix); 
             p_gr2 = GetCharPos(gr2, matrix); 
 
-            //printf("gr1(%i, %i) gr2(%i, %i)", p_gr1.i, p_gr1.j, p_gr2.i, p_gr2.j); 
-
+            if (p_gr1.i == -1 && p_gr1.j == -1) 
+            { 
+                //wprintf(L"Символ %c не определён\n", gr1); 
+            }
+            else 
+            if (p_gr2.i == -1 && p_gr2.j == -1) 
+            { 
+                //wprintf(L"Символ %c не определён\n", gr2); 
+            } 
+            else 
             if ( p_gr1.j == p_gr2.j ) 
             { 
-                if(p_gr1.i == 5)
-                    gr1 = matrix[0][p_gr1.j]; 
-                else 
-                    gr1 = matrix[p_gr1.i+1][p_gr1.j];
-
-                if(p_gr2.i == 5) 
-                    gr2 = matrix[0][p_gr2.j];
-                else 
-                    gr2 = matrix[p_gr2.i+1][p_gr2.j]; 
+                gr1 = (p_gr1.i == 0) ? matrix[5][p_gr1.j] : matrix[p_gr1.i-1][p_gr1.j]; 
+                gr2 = (p_gr2.i == 0) ? matrix[5][p_gr2.j] : matrix[p_gr2.i-1][p_gr2.j];
             }
             else if ( p_gr1.i == p_gr2.i )
             { 
-                if(p_gr1.j == 5)
-                    gr1 = matrix[p_gr1.i][0]; 
-                else 
-                    gr1 = matrix[p_gr1.i][p_gr1.j+1];
-
-                if(p_gr2.j == 5) 
-                    gr2 = matrix[p_gr2.i][0];
-                else 
-                    gr2 = matrix[p_gr2.i][p_gr2.j+1]; 
+                gr1 = (p_gr1.j == 0) ? matrix[p_gr1.i][5] : matrix[p_gr1.i][p_gr1.j-1]; 
+                gr2 = (p_gr2.j == 0) ? matrix[p_gr2.i][5] : matrix[p_gr2.i][p_gr2.j-1];
             }
             else 
             {
-
+                gr1 = (p_gr1.i == 0) ? matrix[5][p_gr1.j] : matrix[p_gr1.i - 1][p_gr1.j]; 
+                gr2 = (p_gr2.i == 5) ? matrix[0][p_gr2.j] : matrix[p_gr2.i + 1][p_gr2.j];
             }
-
+    
             result[CryptoID] = gr1; 
-            result[CryptoID + 1] = gr2; 
+            result[CryptoID + 1] = gr2;
+
+            //wprintf(L"d: %s\n", result); 
         }
-    } 
-
-    if(flag == 'd')
-    { 
-
     }
+
+    if (buff_len % 2 != 0)
+    { 
+        result[buff_len-1] = buffer[buff_len-1];
+    }
+
+    for(size_t i = 0; i < 6; i++)
+    { 
+        free(matrix[i]);
+    }
+    free(matrix); 
+
+    return result;
 }
 
 bool CryptCompare(wchar_t *src, wchar_t *dest) 
 { 
-    return wcscmp(src, dest) == 1;     
+    return wcscmp(src, dest) == 0;     
 }
