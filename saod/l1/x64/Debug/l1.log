@@ -1,0 +1,7 @@
+﻿  rbtree.cpp
+D:\Git files\study\saod\l1\rbtree.cpp(235): warning C4715: rbtree_lookup: значение возвращается не при всех путях выполнения
+D:\Git files\study\saod\l1\rbtree.cpp(181): warning C4715: __rbtree_fix: значение возвращается не при всех путях выполнения
+D:\Git files\study\saod\l1\rbtree.cpp(218): warning C4715: rbtree_add: значение возвращается не при всех путях выполнения
+D:\Git files\study\saod\l1\rbtree.cpp(256): warning C4715: rbtree_max: значение возвращается не при всех путях выполнения
+D:\Git files\study\saod\l1\rbtree.cpp(248): warning C4715: rbtree_min: значение возвращается не при всех путях выполнения
+  l1.vcxproj -> D:\Git files\study\saod\l1\x64\Debug\l1.exe

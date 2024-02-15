@@ -103,6 +103,9 @@ void WorkStart()
 
     printf("Min Distance: %f\n", min_distance); 
     printf("Min Distance index: %i\n", min_distance_index); 
+
+    fclose(thread); 
+    free(ia);
 }
 
 INT_ARRAY *__create_int_array(size_t len) 
