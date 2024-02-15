@@ -8,9 +8,9 @@ using namespace std;
 
 class ManufacturingCompany
 {
-public:
-    string Country;
-    string TypeOfEquipment;
+    public:
+        string Country;
+        string TypeOfEquipment;
 
     void OutPut()
     {

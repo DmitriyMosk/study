@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1384</width>
+    <height>639</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QLabel" name="background">
+    <property name="geometry">
+     <rect>
+      <x>-350</x>
+      <y>-290</y>
+      <width>1911</width>
+      <height>981</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap>../lolxd/background_1.gif</pixmap>
+    </property>
+   </widget>
+   <widget class="QLabel" name="train">
+    <property name="geometry">
+     <rect>
+      <x>1500</x>
+      <y>170</y>
+      <width>1401</width>
+      <height>511</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap>../lolxd/trains (1) (2).png</pixmap>
+    </property>
+   </widget>
+   <widget class="QLabel" name="people">
+    <property name="geometry">
+     <rect>
+      <x>760</x>
+      <y>270</y>
+      <width>151</width>
+      <height>251</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap>../lolxd/people_2.png</pixmap>
+    </property>
+   </widget>
+   <widget class="QLabel" name="people_1">
+    <property name="geometry">
+     <rect>
+      <x>890</x>
+      <y>270</y>
+      <width>291</width>
+      <height>251</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap>../lolxd/people_1.png</pixmap>
+    </property>
+   </widget>
+   <widget class="QLabel" name="timer_txt">
+    <property name="geometry">
+     <rect>
+      <x>350</x>
+      <y>130</y>
+      <width>171</width>
+      <height>111</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="train_1">
+    <property name="geometry">
+     <rect>
+      <x>-1300</x>
+      <y>220</y>
+      <width>1251</width>
+      <height>391</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap>../lolxd/m_trains (1) (2).png</pixmap>
+    </property>
+   </widget>
+   <widget class="QLabel" name="train_2">
+    <property name="geometry">
+     <rect>
+      <x>1500</x>
+      <y>170</y>
+      <width>1401</width>
+      <height>511</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap>../lolxd/trains (1) (2).png</pixmap>
+    </property>
+   </widget>
+   <zorder>background</zorder>
+   <zorder>people</zorder>
+   <zorder>people_1</zorder>
+   <zorder>train</zorder>
+   <zorder>timer_txt</zorder>
+   <zorder>train_2</zorder>
+   <zorder>train_1</zorder>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1384</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menu_0">
+    <property name="title">
+     <string>Мой мультик0)</string>
+    </property>
+   </widget>
+   <addaction name="menu_0"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

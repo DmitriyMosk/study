@@ -34,36 +34,36 @@ bool Compare(const kartoteka& subscriber1, const kartoteka& subscriber2) {
 int main() {
     list<kartoteka> abonent;
 
-    // РґРѕР±Р°РІР»РµРЅРёРµ Р°Р±РѕРЅРµРЅС‚РѕРІ РІ РєР°СЂС‚РѕС‚РµРєСѓ
-    abonent.push_back(kartoteka("+79261234567", "РРІР°РЅРѕРІ РРІР°РЅ РРІР°РЅРѕРІРёС‡", "1234 567890"));
-    abonent.push_back(kartoteka("+79181234567", "РџРµС‚СЂРѕРІ РџРµС‚СЂ РџРµС‚СЂРѕРІРёС‡", "2345 678901"));
-    abonent.push_back(kartoteka("+79001234567", "РЎРёРґРѕСЂРѕРІ РЎРёРґРѕСЂ РЎРёРґРѕСЂРѕРІРёС‡", "3456 789012"));
+    // добавление абонентов в картотеку
+    abonent.push_back(kartoteka("+79261234567", "Иванов Иван Иванович", "1234 567890"));
+    abonent.push_back(kartoteka("+79181234567", "Петров Петр Петрович", "2345 678901"));
+    abonent.push_back(kartoteka("+79001234567", "Сидоров Сидор Сидорович", "3456 789012"));
 
-    // СЃРѕСЂС‚РёСЂРѕРІРєР° РєР°СЂС‚РѕС‚РµРєРё РїРѕ Р°Р»С„Р°РІРёС‚Сѓ
+    // сортировка картотеки по алфавиту
     abonent.sort(Compare);
 
-    // РІС‹РІРѕРґ РІСЃРµР№ РєР°СЂС‚РѕС‚РµРєРё
-    cout << "РљР°СЂС‚РѕС‚РµРєР° Р°Р±РѕРЅРµРЅС‚РѕРІ:" << endl;
+    // вывод всей картотеки
+    cout << "Картотека абонентов:" << endl;
     for (const auto& kartoteka : abonent) {
         cout << kartoteka.GetPhoneNumber() << " " << kartoteka.GetFio() << " " << kartoteka.GetPassport() << endl;
     }
 
-    // РїРѕРёСЃРє Р°Р±РѕРЅРµРЅС‚Р° РїРѕ РЅРѕРјРµСЂСѓ С‚РµР»РµС„РѕРЅР°
+    // поиск абонента по номеру телефона
     string input_phone_number;
-    cout << "Р’РІРµРґРёС‚Рµ РЅРѕРјРµСЂ С‚РµР»РµС„РѕРЅР° РґР»СЏ РїРѕРёСЃРєР°: ";
+    cout << "Введите номер телефона для поиска: ";
     cin >> input_phone_number;
 
     bool found = false;
     for (const auto& kartoteka : abonent) {
         if (kartoteka.GetPhoneNumber() == input_phone_number) {
-            cout << "РќР°Р№РґРµРЅ Р°Р±РѕРЅРµРЅС‚: " << kartoteka.GetFio() << " " << kartoteka.GetPassport() << endl;
+            cout << "Найден абонент: " << kartoteka.GetFio() << " " << kartoteka.GetPassport() << endl;
             found = true;
             break;
         }
     }
 
     if (!found) {
-        cout << "РђР±РѕРЅРµРЅС‚ СЃ РЅРѕРјРµСЂРѕРј С‚РµР»РµС„РѕРЅР° " << input_phone_number << " РЅРµ РЅР°Р№РґРµРЅ" << endl;
+        cout << "Абонент с номером телефона " << input_phone_number << " не найден" << endl;
     }
 
     return 0;
